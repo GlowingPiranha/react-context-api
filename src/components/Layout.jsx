@@ -4,7 +4,7 @@ import { BudgetContext } from "../context/BudgetContext";
 
 function Layout() {
 
-  const { budgetMode, setBudgetMode } = useContext(BudgetContext)
+  const { maxPrice, setMaxPrice } = useContext(BudgetContext)
 
   return (
     <div>
@@ -22,9 +22,11 @@ function Layout() {
         </NavLink>
       </nav>
 
-      <button onClick={() => setBudgetMode(!budgetMode)} className="mx-3 my-2 bg-success p-1">
-        {budgetMode ? "Disattiva modalità budget" : "Attiva modalità budget"}
-      </button>
+      <input type="number" placeholder="Prezzo max" value={maxPrice ?? ""} onChange={(e) =>
+        setMaxPrice(e.target.value ? parseFloat(e.target.value) : null)
+      }
+        className="mx-2 my-2"
+      />
 
 
       <main className="container">
