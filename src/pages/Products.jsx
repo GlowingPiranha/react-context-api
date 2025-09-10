@@ -1,10 +1,11 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState, useContext } from "react";
+import { BudgetContext } from "../context/BudgetContext";
 
 function Products() {
   const [products, setProducts] = useState([]);
+  const { budgetMode } = useContext(BudgetContext);
 
   useEffect(() => {
     axios.get("https://fakestoreapi.com/products").then((resp) => {
@@ -12,10 +13,15 @@ function Products() {
       console.log(resp.data)
     });
   }, []);
+
+  const filteredProducts = budgetMode
+    ? products.filter((p) => p.price <= 30)
+    : products;
+
   return (
     <div className="container my-4">
       <div className="row row-cols-5 g-4">
-        {products.map((p) => (
+        {filteredProducts.map((p) => (
           <div key={p.id} className="col">
             <Link to={`/products/${p.id}`} className="text-decoration-none text-dark" >
               <div className="card h-100 shadow-sm">
