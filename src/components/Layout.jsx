@@ -28,7 +28,6 @@ function Layout() {
         className="mx-2 my-2"
       />
 
-
       <main className="container">
         <Outlet />
       </main>
